@@ -30,6 +30,36 @@ class Map extends React.Component {
     this.map = myMap;
   }
 
+  setMapView (pos, map, marker, circle) {
+    let location = [pos.latitude, pos.longitude];
+    let accuracy = pos.accuracy;
+    map.setView(location, 17);
+  
+    if (accuracy !== undefined) {
+      // Remove previous location markers
+      if (marker !== undefined) {
+        map.removeLayer(marker);
+        map.removeLayer(circle);
+      }
+  
+      // Show my location with a circle
+      marker = L.marker(location);    
+      circle = L.circle(location, {
+          color: "blue",
+          fillColor: "blue",
+          opacity: 0.4,
+          fillOpacity: 0.1,
+          radius: accuracy * 0.5
+        });
+  
+        map.addLayer(marker);
+        map.addLayer(circle);
+        marker.bindPopup(`Ich bin hier. (±${accuracy} m)`).openPopup();
+    }
+  }
+
+
+
   componentDidMount() {
     this.initMap();
     this.props.getMap(this.map);
