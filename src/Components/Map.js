@@ -51,7 +51,7 @@ class Map extends React.Component {
     let { marker, circle } = this.leafletLayers;
     map.setView(location, 17);
   
-    if (accuracy !== undefined) {
+    if (accuracy !== undefined || Math.abs(accuracy) < 200) {
       // Remove previous location markers
       if (marker !== undefined) {
         map.removeLayer(marker);
