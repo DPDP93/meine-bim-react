@@ -6,21 +6,17 @@ import Map from "./Components/Map.js";
 
 function App() {
   let [position, setPosition] = useState({});
-  let [map, setMap] = useState({});
 
   // get location coordinates
   getLocation().then(pos => {
     setPosition(pos)
   })
 
-  // get leaflet map object from child
-  const handleMap = (m) => { setMap(m) };
-
   return (
-    <div className="container-fluid">
+    <div className="container-fluid" style={{width:"100vw", height:"100vh"}}>
       <div className="row">
-        <p>{JSON.stringify(position)}</p>
-        <Map Haltestellen={Haltestellen} position={position} getMap={handleMap}/> 
+        <p className="position-relative" style={{zIndex: 1}}>{JSON.stringify(position)}</p>
+        <Map Haltestellen={Haltestellen} position={position}/> 
       </div>
     </div>
   );

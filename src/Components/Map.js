@@ -5,12 +5,26 @@ class Map extends React.Component {
   constructor(props) {
     super(props);
     this.Haltestellen = this.props.Haltestellen;
-    this.style = {
+    this.map = {};
+    this.leafletLayers = {
+      marker: undefined,
+      circle: undefined
+    }
+
+    this.mapStyle = {
       width: "100vw",
-      height: "100vh"
+      height: "100vh",
+      zIndex: "0"
+    };
+
+    this.buttonStyle = {
+      zIndex: "100",
+      bottom: "1rem",
+      left: "1rem"
     }
   }
 
+  // initialize leaflet map
   initMap () {
     // Create map and point to Stephansdom
     let steffl = [48.20849, 16.37317];
@@ -30,9 +44,11 @@ class Map extends React.Component {
     this.map = myMap;
   }
 
-  setMapView (pos, map, marker, circle) {
+  // take position and map object and show location
+  setMapView (pos, map) {
     let location = [pos.latitude, pos.longitude];
     let accuracy = pos.accuracy;
+    let { marker, circle } = this.leafletLayers;
     map.setView(location, 17);
   
     if (accuracy !== undefined) {
@@ -55,20 +71,28 @@ class Map extends React.Component {
         map.addLayer(marker);
         map.addLayer(circle);
         marker.bindPopup(`Ich bin hier. (±${accuracy} m)`).openPopup();
+        this.leafletLayers = { marker, circle };
     }
   }
 
+  handleLocationButton = () => {
+    this.setMapView(this.props.position, this.map);
+  }
 
-
+  // lifecycle methods
   componentDidMount() {
     this.initMap();
-    this.props.getMap(this.map);
+  }
+
+  componentDidUpdate() {
+    this.setMapView(this.props.position, this.map);
   }
 
   render () {
     return ( 
     <>
-      <div id="map" className="col-12" style={this.style}></div>
+      <div id="map" className="col-12 position-fixed" style={this.mapStyle}></div>
+      <button type="button" className="btn btn-secondary btn-sm position-fixed" style={this.buttonStyle} onClick={this.handleLocationButton}>🔎 Location</button>
     </>
     )
   }
