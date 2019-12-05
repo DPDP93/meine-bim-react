@@ -5,6 +5,7 @@ import { getNearestStops } from "./Store.js";
 const Input = ({ Haltestellen, position }) => {
   const [nextStop, setNextStop] = useState([]);
   const [displayStop, setDisplayStop] = useState([]);
+  const [input, setInput] = useState("");
   
   // search nearest stops on position change
   useEffect(() => {
@@ -40,6 +41,14 @@ const Input = ({ Haltestellen, position }) => {
     }
   }
 
+  const handleInputChange = (event) => {
+    setInput(event.target.value);
+  }
+
+  const handleButton = (event) => {
+    console.log("button clicked");
+  }
+
   return (
     <>
       <div className="col-12 position-relative" style={{zIndex: 100, top: "5rem"}}>
@@ -48,7 +57,7 @@ const Input = ({ Haltestellen, position }) => {
             <div className="form-row">
               <div className="col-9">
                 <input className="form-control" id="location" type="text" list="stations" placeholder="🔍 Station auswählen"
-                autoComplete="off" onInput={handleInput}/>
+                autoComplete="off" onInput={handleInput} value={input} onChange={handleInputChange}/>
                 <datalist id="stations">
                   {displayStop.length !== 0 
                     ? displayStop.map(e => <option key={e.DIVA} value={e.NAME}>🚊 {e.NAME}</option>)
@@ -57,7 +66,7 @@ const Input = ({ Haltestellen, position }) => {
                 </datalist>
               </div>
               <div className="col-3">
-                <button type="button" className="btn btn-primary">Go</button>
+                <button type="button" className="btn btn-primary" onClick={handleButton}>Go</button>
               </div>
             </div>
           </form>
