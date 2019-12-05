@@ -12,19 +12,25 @@ const Fetcher = ({data, handleFetcher}) => {
             <h4>{station}</h4>
             <br/>
             <table className="table table-striped table-hover w-75 mx-auto">
-              <th>Line</th>
-              <th>Direction</th>
-              <th>[Min.]</th> 
-              <tr>
-                <td>8</td>
-                <td>Hauptbahnhof</td>
-                <td>9</td>
-              </tr>
-              <tr>
-                <td>8</td>
-                <td>Hauptbahnhof</td>
-                <td>9</td>
-              </tr>  
+              <thead>
+                <tr>
+                  <th>Line</th>
+                  <th>Direction</th>
+                  <th>[Min.]</th> 
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>8</td>
+                  <td>Hauptbahnhof</td>
+                  <td>9</td>
+                </tr>
+                <tr>
+                  <td>8</td>
+                  <td>Hauptbahnhof</td>
+                  <td>9</td>
+                </tr>  
+              </tbody>
             </table>
           </div>
         </div>
