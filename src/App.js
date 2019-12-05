@@ -38,7 +38,7 @@ function App() {
       <div className="row">
         <Input Haltestellen={Haltestellen} position={position} returnInput={getInput}/>
         <Map Haltestellen={Haltestellen} position={position} input={input} handleFetcher={handleFetcher}/> 
-        <Fetcher data={fetcher} handleFetcher={handleFetcher}/>
+        <Fetcher fetcherData={fetcher} handleFetcher={handleFetcher}/>
       </div>
     </div>
   );
