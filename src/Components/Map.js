@@ -1,6 +1,5 @@
 import React from "react";
 import L from "leaflet";
-import Fetcher from "./Fetcher.js";
 
 class Map extends React.Component {
   constructor(props) {
@@ -40,6 +39,8 @@ class Map extends React.Component {
       marker._id = e.NAME;
       marker.on("click", (event) => {
         // code here
+        this.props.handleFetcher({ isVisible: "visible", station: marker._id});
+        console.log(marker._id)
       });
     })
     this.map = myMap;
@@ -103,7 +104,6 @@ class Map extends React.Component {
     <>
       <div id="map" className="col-12 position-fixed" style={this.mapStyle}></div>
       <button type="button" className="btn btn-secondary btn-sm position-fixed" style={this.buttonStyle} onClick={this.handleLocationButton}>🔎 Location</button>
-      <Fetcher />
     </>
     )
   }
