@@ -46,32 +46,34 @@ class Map extends React.Component {
 
   // take position and map object and show location
   setMapView (pos, map) {
-    let location = [pos.latitude, pos.longitude];
-    let accuracy = pos.accuracy;
-    let { marker, circle } = this.leafletLayers;
-    map.setView(location, 17);
-  
-    if (accuracy !== undefined || Math.abs(accuracy) < 200) {
-      // Remove previous location markers
-      if (marker !== undefined) {
-        map.removeLayer(marker);
-        map.removeLayer(circle);
+    if (pos.enabled === true) {
+      let location = [pos.latitude, pos.longitude];
+      let accuracy = pos.accuracy;
+      let { marker, circle } = this.leafletLayers;
+      map.setView(location, 17);
+    
+      if (accuracy !== undefined || Math.abs(accuracy) < 200) {
+        // Remove previous location markers
+        if (marker !== undefined) {
+          map.removeLayer(marker);
+          map.removeLayer(circle);
+        }
+    
+        // Show my location with a circle
+        marker = L.marker(location);    
+        circle = L.circle(location, {
+            color: "blue",
+            fillColor: "blue",
+            opacity: 0.4,
+            fillOpacity: 0.1,
+            radius: accuracy * 0.5
+          });
+    
+          map.addLayer(marker);
+          map.addLayer(circle);
+          marker.bindPopup(`Ich bin hier. (±${accuracy} m)`).openPopup();
+          this.leafletLayers = { marker, circle };
       }
-  
-      // Show my location with a circle
-      marker = L.marker(location);    
-      circle = L.circle(location, {
-          color: "blue",
-          fillColor: "blue",
-          opacity: 0.4,
-          fillOpacity: 0.1,
-          radius: accuracy * 0.5
-        });
-  
-        map.addLayer(marker);
-        map.addLayer(circle);
-        marker.bindPopup(`Ich bin hier. (±${accuracy} m)`).openPopup();
-        this.leafletLayers = { marker, circle };
     }
   }
 

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { getNearestStops } from "./Store.js";
 
 
-const Input = ({ Haltestellen, position }) => {
+const Input = ({ Haltestellen, position, returnInput }) => {
   const [nextStop, setNextStop] = useState([]);
   const [displayStop, setDisplayStop] = useState([]);
   const [input, setInput] = useState("");
@@ -46,7 +46,12 @@ const Input = ({ Haltestellen, position }) => {
   }
 
   const handleButton = (event) => {
-    console.log("button clicked");
+    event.preventDefault();
+    let s = [];
+    if (input.length !== 0) {
+      s = regexSearch(input, Haltestellen)[0];
+    } 
+    returnInput(s);
   }
 
   return (
