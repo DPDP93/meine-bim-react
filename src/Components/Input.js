@@ -4,15 +4,40 @@ import { getNearestStops } from "./Store.js";
 
 const Input = ({ Haltestellen, position }) => {
   const [nextStop, setNextStop] = useState([]);
+  const [displayStop, setDisplayStop] = useState([]);
   
+  // search nearest stops on position change
   useEffect(() => {
-    let x = getNearestStops(position, Haltestellen)
-    setNextStop(x);
-    console.log(x)
+    let s = getNearestStops(position, Haltestellen)
+    setNextStop(s);
+    setDisplayStop(s);
   }, [position]);
 
+  // regex search stations
+  const regexSearch = (val, stations) => {
+    let pattern = new RegExp(val, "i");
+    let filterStations = [];
+    for (let i = 0; i < stations.length; i++) {
+      if (pattern.test(stations[i].NAME)) {
+        filterStations = [...filterStations, Haltestellen[i]];
+      }
+      // artificial limit: show only 10 stations max
+      if (filterStations.length >= 10) {
+        break;
+      } 
+    }
+    return filterStations
+  } 
+
   const handleInput = (event) => {
-    console.log(event.target.value);
+    const val = event.target.value;
+    let s = [];
+    if (val.length > 3) {
+      s = regexSearch(val, Haltestellen);
+      setDisplayStop(s);
+    } else {
+      setDisplayStop(nextStop);
+    }
   }
 
   return (
@@ -25,8 +50,8 @@ const Input = ({ Haltestellen, position }) => {
                 <input className="form-control" id="location" type="text" list="stations" placeholder="🔍 Station auswählen"
                 autoComplete="off" onInput={handleInput}/>
                 <datalist id="stations">
-                  {nextStop.length !== 0 
-                    ? nextStop.map(e => <option key={e.DIVA} value={e.NAME}>🚊 {e.NAME}</option>)
+                  {displayStop.length !== 0 
+                    ? displayStop.map(e => <option key={e.DIVA} value={e.NAME}>🚊 {e.NAME}</option>)
                     : <option value="Schottentor">🚊 Schottentor</option> 
                   }
                 </datalist>
