@@ -1,7 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { getNearestStops } from "./Store.js";
+
 
 const Input = ({ Haltestellen, position }) => {
+  const [nextStop, setNextStop] = useState([]);
   
+  useEffect(() => {
+    let x = getNearestStops(position, Haltestellen)
+    setNextStop(x);
+    console.log(x)
+  }, [position]);
 
   const handleInput = (event) => {
     console.log(event.target.value);
@@ -17,9 +25,10 @@ const Input = ({ Haltestellen, position }) => {
                 <input className="form-control" id="location" type="text" list="stations" placeholder="🔍 Station auswählen"
                 autoComplete="off" onInput={handleInput}/>
                 <datalist id="stations">
-                  <option value="Schottentor">🚊 Schottentor</option>
-                  <option value="Vinzenzgasse">🚊 Vinzenzgasse</option>
-                  <option value="Rosensteingasse">🚊 Rosensteingasse</option>
+                  {nextStop.length !== 0 
+                    ? nextStop.map(e => <option key={e.DIVA} value={e.NAME}>🚊 {e.NAME}</option>)
+                    : <option value="Schottentor">🚊 Schottentor</option> 
+                  }
                 </datalist>
               </div>
               <div className="col-3">
@@ -32,6 +41,7 @@ const Input = ({ Haltestellen, position }) => {
     </>
   );
 };
+
 
 
 export default Input;
