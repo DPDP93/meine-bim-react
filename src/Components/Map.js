@@ -1,5 +1,6 @@
 import React from "react";
 import L from "leaflet";
+import Input from "./Input";
 
 class Map extends React.Component {
   constructor(props) {
@@ -87,7 +88,14 @@ class Map extends React.Component {
   }
 
   componentDidUpdate() {
+    // set map view to location
     this.setMapView(this.props.position, this.map);
+
+    // set map view to station
+    let input = this.props.input;
+    if (input.length !== 0) {
+      this.map.setView([input.LATITUDE, input.LONGITUDE], 17);
+    }
   }
 
   render () {

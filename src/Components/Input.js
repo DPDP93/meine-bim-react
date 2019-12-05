@@ -31,6 +31,7 @@ const Input = ({ Haltestellen, position, returnInput }) => {
   } 
 
   const handleInput = (event) => {
+    event.preventDefault();
     const val = event.target.value;
     let s = [];
     if (val.length > 3) {
@@ -42,6 +43,7 @@ const Input = ({ Haltestellen, position, returnInput }) => {
   }
 
   const handleInputChange = (event) => {
+    event.preventDefault();
     setInput(event.target.value);
   }
 

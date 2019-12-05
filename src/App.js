@@ -22,15 +22,15 @@ function App() {
   }, []);
 
   // get map object
-  const getInput = (data) => {
-    setInput(data);
+  const getInput = (s) => {
+    setInput(s);
   }
 
   return (
     <div className="container-fluid" style={{width:"100vw", height:"100vh"}}>
       <div className="row">
         <Input Haltestellen={Haltestellen} position={position} returnInput={getInput}/>
-        <Map Haltestellen={Haltestellen} position={position}/> 
+        <Map Haltestellen={Haltestellen} position={position} input={input}/> 
       </div>
     </div>
   );
