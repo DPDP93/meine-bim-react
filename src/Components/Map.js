@@ -22,6 +22,8 @@ class Map extends React.Component {
       bottom: "1rem",
       left: "1rem"
     }
+
+    this.oldInput = "";
   }
 
   // initialize leaflet map
@@ -85,16 +87,15 @@ class Map extends React.Component {
   // lifecycle methods
   componentDidMount() {
     this.initMap();
+    setTimeout(() => this.setMapView(this.props.position, this.map), 7000);
   }
 
   componentDidUpdate() {
-    // set map view to location
-    this.setMapView(this.props.position, this.map);
-
     // set map view to station
     let input = this.props.input;
-    if (input.length !== 0) {
+    if (input.length !== 0 && this.oldInput !== input) {
       this.map.setView([input.LATITUDE, input.LONGITUDE], 17);
+      this.oldInput = input;
     }
   }
 
