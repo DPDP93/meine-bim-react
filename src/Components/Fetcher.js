@@ -23,7 +23,7 @@ const Fetcher = ({fetcherData, handleFetcher}) => {
   return (
       <div className={`position-relative container ${isVisible}`} style={{zIndex: "102", height: "80vh", lineHeight: "1"}}>
         <div className="row h-100 justify-content-center align-items-center">
-          <div className="bg-white py-3 px-4 w-50">
+          <div className="bg-white py-3 px-4 col-lg-6 col-md-8 col-xs-10">
             <button type="button" className="close text-danger" onClick={() => handleFetcher({ isVisible: "invisible", station: station})}>x</button>
             <h4>{station}</h4>
             <br/>
@@ -38,7 +38,7 @@ const Fetcher = ({fetcherData, handleFetcher}) => {
               <tbody>
                 { data.length === 0 
                   ? (<tr><td>loading...</td><td>loading...</td><td>loading...</td></tr> )
-                  : ( data.lines.map(e => <tr><td>{e.name}</td><td>{e.towards}</td><td>{e.departures[0]}, {e.departures[1]}</td></tr>) )
+                  : ( data.lines.map(e => <tr key={JSON.stringify(e)}><td>{e.name}</td><td>{e.towards}</td><td>{e.departures[0]}, {e.departures[1]}</td></tr>) )
                 } 
               </tbody>
             </table>

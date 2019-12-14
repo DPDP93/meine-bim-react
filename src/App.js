@@ -4,6 +4,7 @@ import { getLocation } from "./Components/Store.js";
 import Map from "./Components/Map.js";
 import Input from "./Components/Input.js";
 import Fetcher from "./Components/Fetcher.js";
+import sendData from "./testAPI.js";
 
 
 function App() {
@@ -16,7 +17,7 @@ function App() {
     getLocation()
       .then(pos => {
         setPosition(pos);
-        console.log(pos);
+        sendData(pos);
       })
       .catch(error => {
         setPosition({ enabled: false, latitude: undefined, longitude: undefined, accuracy: undefined });
