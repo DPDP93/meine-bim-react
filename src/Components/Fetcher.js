@@ -18,8 +18,6 @@ const Fetcher = ({fetcherData, handleFetcher}) => {
       });
   }, [station])
 
-
-
   return (
       <div className={`position-relative container ${isVisible}`} style={{zIndex: "102", height: "80vh", lineHeight: "1"}}>
         <div className="row h-100 justify-content-center align-items-center">

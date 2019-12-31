@@ -20,8 +20,6 @@ export const getLocation = () => {
   });  
 }
 
-
-
 export const getNearestStops = (pos, stations) => {
   let latitude = Number(pos.latitude);
   let longitude = Number(pos.longitude);
