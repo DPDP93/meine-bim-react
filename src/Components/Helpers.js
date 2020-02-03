@@ -1,3 +1,6 @@
+/**
+ * getLocation - get current location from navigator or reject promise
+ */
 export const getLocation = () => {
   return new Promise((resolve, reject) => {
     if (navigator.geolocation) {
@@ -20,6 +23,12 @@ export const getLocation = () => {
   });  
 }
 
+/**
+ * getNearestStops - stations within distance
+ * @param pos - position object with longitude, latitude
+ * @param stations  - array with all Stations
+ * @return returns filtered array
+ */
 export const getNearestStops = (pos, stations) => {
   let latitude = Number(pos.latitude);
   let longitude = Number(pos.longitude);

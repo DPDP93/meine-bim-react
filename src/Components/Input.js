@@ -1,22 +1,30 @@
 import React, { useState, useEffect } from "react";
-import { getNearestStops } from "./Store.js";
+import { getNearestStops } from "./Helpers.js";
 
-
+/**
+ * Input - React Component
+ * controls the search box and filters through station list
+ */
 const Input = ({ Haltestellen, position, returnInput }) => {
-  const [nextStop, setNextStop] = useState([]);
-  const [displayStop, setDisplayStop] = useState([]);
+  const [nearestStops, setNearestStops] = useState([]);
+  const [displayList, setDisplayList] = useState([]);
   const [input, setInput] = useState("");
   
-  // search nearest stops on position change
+  // when position changes - search nearest stops
   useEffect(() => {
     let s = getNearestStops(position, Haltestellen)
-    setNextStop(s);
-    setDisplayStop(s);
+    setNearestStops(s);
+    setDisplayList(s);
   }, [position]);
 
-  // regex search stations
-  const regexSearch = (val, stations) => {
-    let pattern = new RegExp(val, "i");
+  /**
+   * regexSearchStations - filtered array with stations where regex pattern is true
+   * @param {string} searchBoxInput - e.g. "Schottentor"
+   * @param {Array} stations  - array with all Stations
+   * @return {Array} - returns filtered array
+   */
+  const regexSearchStations = (searchBoxInput, stations) => {
+    let pattern = new RegExp(searchBoxInput, "i");
     let filterStations = [];
     for (let i = 0; i < stations.length; i++) {
       if (pattern.test(stations[i].NAME)) {
@@ -32,13 +40,13 @@ const Input = ({ Haltestellen, position, returnInput }) => {
 
   const handleInput = (event) => {
     event.preventDefault();
-    const val = event.target.value;
-    let s = [];
-    if (val.length > 3) {
-      s = regexSearch(val, Haltestellen);
-      setDisplayStop(s);
+    const searchBoxInput = event.target.value;
+    let filteredStops = [];
+    if (searchBoxInput.length > 3) {
+      filteredStops = regexSearchStations(searchBoxInput, Haltestellen);
+      setDisplayList(filteredStops);
     } else {
-      setDisplayStop(nextStop);
+      setDisplayList(nearestStops);
     }
   }
 
@@ -49,11 +57,11 @@ const Input = ({ Haltestellen, position, returnInput }) => {
 
   const handleButton = (event) => {
     event.preventDefault();
-    let s = [];
+    let selectedStation = [];
     if (input.length !== 0) {
-      s = regexSearch(input, Haltestellen)[0];
+      selectedStation = regexSearchStations(input, Haltestellen)[0];
     } 
-    returnInput(s);
+    returnInput(selectedStation);
   }
 
   return (
@@ -66,8 +74,8 @@ const Input = ({ Haltestellen, position, returnInput }) => {
                 <input className="form-control" id="location" type="text" list="stations" placeholder="🔍 Station auswählen"
                 autoComplete="off" onInput={handleInput} value={input} onChange={handleInputChange}/>
                 <datalist id="stations">
-                  {displayStop.length !== 0 
-                    ? displayStop.map(e => <option key={e.DIVA} value={e.NAME}>🚊 {e.NAME}</option>)
+                  {displayList.length !== 0 
+                    ? displayList.map(e => <option key={e.DIVA} value={e.NAME}>🚊 {e.NAME}</option>)
                     : <option value="Schottentor">🚊 Schottentor</option> 
                   }
                 </datalist>

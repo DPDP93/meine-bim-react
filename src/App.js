@@ -1,18 +1,23 @@
 import React, { useState, useEffect } from "react";
 import { Haltestellen } from "./Components/Haltestellen.js";
-import { getLocation } from "./Components/Store.js";
+import { getLocation } from "./Components/Helpers.js";
 import Map from "./Components/Map.js";
 import Input from "./Components/Input.js";
 import Fetcher from "./Components/Fetcher.js";
 import sendData from "./testAPI.js";
 
 
+/**
+ * App - Parent React Element containing the App 
+ * sets default state of position, textbox input and visibility of white box fetcher
+ */
+
 function App() {
   let [position, setPosition] = useState({});
   let [input, setInput] = useState([]);
   let [fetcher, setFetcher] = useState({ isVisible: "invisible", station: "Schottentor" });
    
-  // first render - get geolocation
+  // side effect first render - get geolocation
   useEffect(() => {
     getLocation()
       .then(pos => {
