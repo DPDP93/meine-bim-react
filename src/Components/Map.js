@@ -64,7 +64,7 @@ class Map extends React.Component {
       marker._id = e.NAME;
       marker.on("click", (event) => {
         // code here
-        this.props.handleFetcher({ isVisible: "visible", station: marker._id});
+        this.props.handleBoxData({ isVisible: "visible", station: marker._id});
       });
     })
 

@@ -15,7 +15,7 @@ import sendData from "./testAPI.js";
 function App() {
   let [position, setPosition] = useState({});
   let [input, setInput] = useState([]);
-  let [fetcher, setFetcher] = useState({ isVisible: "invisible", station: "Schottentor" });
+  let [whiteBoxStatus, setWhiteBoxStatus] = useState({ isVisible: "invisible", station: "Schottentor" });
    
   // side effect first render - get geolocation
   useEffect(() => {
@@ -35,16 +35,16 @@ function App() {
   }
 
   // set visibility
-  const handleFetcher = (data) => {
-    setFetcher(data);
+  const handleWhiteBox = (data) => {
+    setWhiteBoxStatus(data);
   }
 
   return (
     <div className="container-fluid" style={{width:"100vw", height:"100vh"}}>
       <div className="row">
         <Input Haltestellen={Haltestellen} position={position} returnInput={getInput}/>
-        <Map Haltestellen={Haltestellen} position={position} input={input} handleFetcher={handleFetcher}/> 
-        <Fetcher fetcherData={fetcher} handleFetcher={handleFetcher}/>
+        <Map Haltestellen={Haltestellen} position={position} input={input} handleBoxData={handleWhiteBox}/> 
+        <Fetcher Haltestellen={Haltestellen} boxData={whiteBoxStatus} handleBoxData={handleWhiteBox}/>
       </div>
     </div>
   );
