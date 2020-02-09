@@ -8,7 +8,6 @@ const sendData = async (pos) => {
     longitude: position.longitude.toFixed(7),
     time: timestamp
   }
-  //console.log(JSON.stringify(payLoad));   
   
   let response = await fetch("https://meine-bim-node.herokuapp.com/api", {
     method: "POST", 

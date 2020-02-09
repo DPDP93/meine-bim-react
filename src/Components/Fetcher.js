@@ -20,8 +20,8 @@ const Fetcher = ({Haltestellen, boxData, handleBoxData}) => {
       url = `${url}&rbl=${RBL[i]}`;
     }
 
-    //let response = await fetch(url, {mode: 'cors'});
-    let response = await fetch("http://localhost:3004/data");
+    let response = await fetch(url, {mode: 'cors'});
+    //let response = await fetch("http://localhost:3004/data");
     let data = await response.json();
     return data; 
   }

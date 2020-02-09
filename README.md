@@ -1,17 +1,16 @@
-# Meine-Bim.com - React Frontend
+# Meine-Bim.com - Frontend
 
-Meine-bim.com is a React App, showing a map of Vienna and all its public transport stations. It utilizes Leaflet and Open Street Maps, as well as a fake API mocking some data for the public transport info. For the latter, I wait to get API access.
+Meine-bim.com is a React app mimicking the Quando Monitor function. By clicking on a train symbol, requests are sent to the Wiener Linien (Vienna Public Transport) API to get real time departure data. It utilizes Leaflet and Open Street Maps. I still wait to get full access to the API, as I currently run into CORS issues. 
 
 App can be seen here: [Meine-Bim.com](https://meine-bim.com)
 
+## What I’ve learned
 
-## What I learned
-
-- Create-React-App
-- Organizing Code 
-- React Props and State
-- React Class Components and Hooks
+- React.js
+    - classes and hooks
+    - props and state management
 - Using Node and NPM Scripts
 - Leaflet
 - Bootstrap 4
-- Fetch API to Mock JSON API
+- Fetching data from API
+- Working with JSON, local development with json server
