@@ -49,7 +49,7 @@ const Fetcher = ({Haltestellen, boxData, handleBoxData}) => {
     fetchData(station) 
       .then(newData => formatData(newData))
       .then(data => {
-        console.log(data);
+        setData({ lines: [] });
         setData(data);
       });
   }, [station])
