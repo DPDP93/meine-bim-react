@@ -15,13 +15,15 @@ const Fetcher = ({Haltestellen, boxData, handleBoxData}) => {
   // fetch data from API
   const fetchData = async (station) => {
     let RBL = await Haltestellen.filter(e => e.NAME === station)[0].RBL;
-    let url = "https://www.wienerlinien.at/ogd_realtime/monitor?" 
+    let url = "";
     for (let i = 0; i < RBL.length; i++) {
-      url = `${url}&rbl=${RBL[i]}`;
-    }
-
-    let response = await fetch(url, {mode: 'cors'});
-    //let response = await fetch("http://localhost:3004/data");
+      if (i === 0) {
+        url = `rbl=${RBL[i]}`;
+      } else {
+        url = `${url}&rbl=${RBL[i]}`;
+      }
+    };
+    let response = await fetch("https://meine-bim-node.herokuapp.com/bim/monitor?" + url, {mode: 'cors'});
     let data = await response.json();
     return data; 
   }
