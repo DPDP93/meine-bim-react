@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-// json-server --watch db.json --port 3004
+// json-server --watch monitor.json --port 3004
 // https://www.wienerlinien.at/ogd_realtime/monitor?&rbl=1212&rbl=1345&rbl=5568&rbl=2910&rbl=4203&rbl=4212&rbl=46&rbl=18&rbl=1303&rbl=3701
 
 /**
@@ -32,7 +32,7 @@ const Fetcher = ({Haltestellen, boxData, handleBoxData}) => {
   const formatData = async (d) => {
     // d.monitors[0].lines[0].departures.departure[0].departureTime.countdown
     let data = { lines:[] };
-    d.monitors.map(e => {
+    d.data.monitors.map(e => {
       let line = {};
       line.name = e.lines[0].name;
       line.towards = e.lines[0].towards;
