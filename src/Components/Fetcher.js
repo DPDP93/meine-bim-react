@@ -46,19 +46,21 @@ const Fetcher = ({Haltestellen, boxData, handleBoxData}) => {
 
   // when station changes, fetch and prepare new data
   useEffect(() => {
-    fetchData(station) 
-      .then(newData => formatData(newData))
-      .then(data => {
-        setData({ lines: [] });
-        setData(data);
-      });
-  }, [station])
+    if (station.length > 0) {
+      fetchData(station) 
+        .then(newData => formatData(newData))
+        .then(data => {
+          setData({ lines: [] });
+          setData(data);
+        });
+    }
+  }, [station]);
 
   return (
       <div className={`position-relative container ${isVisible}`} style={{zIndex: "102", height: "80vh", lineHeight: "1"}}>
         <div className="row h-100 justify-content-center align-items-center">
           <div className="bg-white py-3 px-4 col-lg-6 col-md-8 col-xs-10">
-            <button type="button" className="close text-danger" onClick={() => handleBoxData({ isVisible: "invisible", station: station})}>x</button>
+            <button type="button" className="close text-danger" onClick={() => handleBoxData({ isVisible: "invisible", station: ""})}>x</button>
             <h4>{station}</h4>
             <br/>
             <table className="table table-striped table-hover table-borderless mx-auto">
